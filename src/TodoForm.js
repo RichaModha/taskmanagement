@@ -11,7 +11,7 @@ function TodoForm(props)
 
     const handleSubmit=(e)=>
     {
-        const response = fetch('http://localhost:3001/add_task', {
+        const response = fetch('http://localhost:3000/add_task', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

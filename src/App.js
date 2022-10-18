@@ -4,6 +4,7 @@ import TodoForm from './TodoForm';
 import TodoList from './TodoList';
 import SearchTask from './SearchTask';
 import SearchedTaskList from './SeachedTaskList';
+//import Axios from "axios";
 import React, {useState,useEffect} from 'react';
 //import data from './data.json';
 
@@ -12,16 +13,18 @@ function App() {
   const [searchedTaskList_,setSearchedTaskList]=useState('');
 
   useEffect(()=>{
-      const fetchTasks=async()=>{
-      const tasksList=await fetch('http://localhost:3001/all_tasks');
+      const fetchTasks=async(req,res)=>{
+      const tasksList=await fetch('http://localhost:3000/all_tasks');
       alert(tasksList);
       const jsonTasksList=await tasksList.json();
 
       setTodoList(jsonTasksList);
+      //Axios.get('https://localhost:3000/all_tasks').then((response) => {
+      //setTodoList(response.data);
     }
 
     fetchTasks();
-  },[])
+  },[]);
 
   const handleToggle_=(id)=>
   {
@@ -30,8 +33,8 @@ function App() {
       return task.id===Number(id) ? {...task,complete : !task.complete} : {...task}
     })
 
-    const response = fetch('http://localhost:3001/update_task', {
-            method: 'PUT',
+    const response = fetch('http://localhost:3000/update_task', {
+            method: 'GET',
             headers: {
               'Content-Type': 'application/json',
             },
@@ -44,7 +47,7 @@ function App() {
 
   const clearCompleted_=()=>
   {
-    const tasksList=fetch('http://localhost:3001/all_tasks');
+    const tasksList=fetch('http://localhost:3000/all_tasks');
       alert(tasksList);
       const jsonTasksList=tasksList.json();
 
